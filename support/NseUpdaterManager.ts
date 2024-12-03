@@ -8,7 +8,7 @@ import {
 
 // project `ios/CleverPushNotificationServiceExtension` directory
 const entitlementsFileName = `${NSE_TARGET_NAME}.entitlements`;
-const plistFileName = `${NSE_TARGET_NAME}-Info.plist`;
+const plistFileName = `Info.plist`;
 
 export default class NseUpdaterManager {
   private nsePath = "";

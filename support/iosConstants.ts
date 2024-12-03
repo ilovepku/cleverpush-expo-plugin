@@ -6,7 +6,7 @@ export const NSE_SOURCE_FILE = "NotificationService.m";
 export const NSE_EXT_FILES = [
   "NotificationService.h",
   `${NSE_TARGET_NAME}.entitlements`,
-  `${NSE_TARGET_NAME}-Info.plist`,
+  `Info.plist`,
 ];
 export const NSE_PODFILE_SNIPPET = `
 target '${NSE_TARGET_NAME}' do
