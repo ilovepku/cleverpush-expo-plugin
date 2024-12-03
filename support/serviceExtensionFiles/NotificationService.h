@@ -1,5 +1,7 @@
+//
 //  NotificationService.h
-//  OneSignalNotificationServiceExtension
+//  CleverPushNotificationServiceExtension
+//
 
 #import <UserNotifications/UserNotifications.h>
 
