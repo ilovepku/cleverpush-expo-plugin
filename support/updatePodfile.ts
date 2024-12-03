@@ -1,5 +1,9 @@
 import fs from "fs";
-import { NSE_PODFILE_REGEX, NSE_PODFILE_SNIPPET } from "./iosConstants";
+import {
+  NSE_PODFILE_REGEX,
+  NSE_PODFILE_SNIPPET,
+  NSE_TARGET_NAME,
+} from "./iosConstants";
 import { OneSignalLog } from "./OneSignalLog";
 import { FileManager } from "./FileManager";
 
@@ -9,7 +13,7 @@ export async function updatePodfile(iosPath: string) {
 
   if (matches) {
     OneSignalLog.log(
-      "OneSignalNotificationServiceExtension target already added to Podfile. Skipping..."
+      NSE_TARGET_NAME + " target already added to Podfile. Skipping..."
     );
   } else {
     fs.appendFile(`${iosPath}/Podfile`, NSE_PODFILE_SNIPPET, (err) => {

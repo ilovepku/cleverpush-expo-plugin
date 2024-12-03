@@ -6,9 +6,9 @@ import {
   NSE_TARGET_NAME,
 } from "./iosConstants";
 
-// project `ios/OneSignalNotificationServiceExtension` directory
-const entitlementsFileName = `OneSignalNotificationServiceExtension.entitlements`;
-const plistFileName = `OneSignalNotificationServiceExtension-Info.plist`;
+// project `ios/CleverPushNotificationServiceExtension` directory
+const entitlementsFileName = `${NSE_TARGET_NAME}.entitlements`;
+const plistFileName = `${NSE_TARGET_NAME}-Info.plist`;
 
 export default class NseUpdaterManager {
   private nsePath = "";
