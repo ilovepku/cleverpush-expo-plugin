@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import { OneSignalLog } from './OneSignalLog';
+import * as fs from "fs";
+import { OneSignalLog } from "./OneSignalLog";
 
 /**
  * FileManager contains static *awaitable* file-system functions
@@ -7,7 +7,7 @@ import { OneSignalLog } from './OneSignalLog';
 export class FileManager {
   static async readFile(path: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      fs.readFile(path, 'utf8', (err, data) => {
+      fs.readFile(path, "utf8", (err, data) => {
         if (err || !data) {
           OneSignalLog.error("Couldn't read file:" + path);
           reject(err);
@@ -20,7 +20,7 @@ export class FileManager {
 
   static async writeFile(path: string, contents: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      fs.writeFile(path, contents, 'utf8', (err) => {
+      fs.writeFile(path, contents, "utf8", (err) => {
         if (err) {
           OneSignalLog.error("Couldn't write file:" + path);
           reject(err);
@@ -37,6 +37,6 @@ export class FileManager {
   }
 
   static dirExists(path: string): boolean {
-    return fs.existsSync(path)
+    return fs.existsSync(path);
   }
 }
