@@ -1,5 +1,5 @@
 /**
- * Expo config plugin for OneSignal (Android)
+ * Expo config plugin for CleverPush (Android)
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
 
@@ -9,8 +9,8 @@ import {
   withStringsXml,
 } from "@expo/config-plugins";
 import { generateImageAsync } from "@expo/image-utils";
-import { OneSignalLog } from "../support/OneSignalLog";
-import { OneSignalPluginProps } from "../types/types";
+import { CleverPushLog } from "../support/CleverPushLog";
+import { CleverPushPluginProps } from "../types/types";
 import { resolve, parse } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
@@ -30,11 +30,11 @@ const LARGE_ICON_DIRS_TO_SIZE: { [name: string]: number } = {
   "drawable-xxxhdpi": 256,
 };
 
-const withSmallIcons: ConfigPlugin<OneSignalPluginProps> = (
+const withSmallIcons: ConfigPlugin<CleverPushPluginProps> = (
   config,
-  onesignalProps
+  cleverpushProps
 ) => {
-  if (!onesignalProps.smallIcons && !config.notification?.icon) {
+  if (!cleverpushProps.smallIcons && !config.notification?.icon) {
     return config;
   }
 
@@ -50,10 +50,10 @@ const withSmallIcons: ConfigPlugin<OneSignalPluginProps> = (
         );
       }
 
-      if (onesignalProps.smallIcons) {
+      if (cleverpushProps.smallIcons) {
         await saveIconsArrayAsync(
           config.modRequest.projectRoot,
-          onesignalProps.smallIcons,
+          cleverpushProps.smallIcons,
           SMALL_ICON_DIRS_TO_SIZE
         );
       }
@@ -62,11 +62,11 @@ const withSmallIcons: ConfigPlugin<OneSignalPluginProps> = (
   ]);
 };
 
-const withLargeIcons: ConfigPlugin<OneSignalPluginProps> = (
+const withLargeIcons: ConfigPlugin<CleverPushPluginProps> = (
   config,
-  onesignalProps
+  cleverpushProps
 ) => {
-  if (!onesignalProps.largeIcons) {
+  if (!cleverpushProps.largeIcons) {
     return config;
   }
 
@@ -74,10 +74,10 @@ const withLargeIcons: ConfigPlugin<OneSignalPluginProps> = (
   return withDangerousMod(config, [
     "android",
     async (config) => {
-      if (onesignalProps.largeIcons) {
+      if (cleverpushProps.largeIcons) {
         await saveIconsArrayAsync(
           config.modRequest.projectRoot,
-          onesignalProps.largeIcons,
+          cleverpushProps.largeIcons,
           LARGE_ICON_DIRS_TO_SIZE
         );
       }
@@ -86,16 +86,16 @@ const withLargeIcons: ConfigPlugin<OneSignalPluginProps> = (
   ]);
 };
 
-const withSmallIconAccentColor: ConfigPlugin<OneSignalPluginProps> = (
+const withSmallIconAccentColor: ConfigPlugin<CleverPushPluginProps> = (
   config,
-  onesignalProps
+  cleverpushProps
 ) => {
-  if (!onesignalProps.smallIconAccentColor) {
+  if (!cleverpushProps.smallIconAccentColor) {
     return config;
   }
 
   return withStringsXml(config, (config) => {
-    const colorInARGB = `FF${onesignalProps.smallIconAccentColor?.replace(
+    const colorInARGB = `FF${cleverpushProps.smallIconAccentColor?.replace(
       "#",
       ""
     )}`;
@@ -104,13 +104,13 @@ const withSmallIconAccentColor: ConfigPlugin<OneSignalPluginProps> = (
     // Check if the accent color entry already exists
     const hasAccentColor = strings.some(
       (stringEntry) =>
-        stringEntry.$?.name === "onesignal_notification_accent_color" &&
+        stringEntry.$?.name === "cleverpush_notification_accent_color" &&
         stringEntry._ === colorInARGB
     );
 
     if (!hasAccentColor) {
       const accentColorEntry = {
-        $: { name: "onesignal_notification_accent_color" },
+        $: { name: "cleverpush_notification_accent_color" },
         _: colorInARGB,
       };
 
@@ -138,7 +138,7 @@ async function saveIconAsync(
 ) {
   const name = parse(icon).name;
 
-  OneSignalLog.log("Saving icon " + icon + " as drawable resource " + name);
+  CleverPushLog.log("Saving icon " + icon + " as drawable resource " + name);
 
   for (const iconResourceDir in dirsToSize) {
     const path = resolve(projectRoot, RESOURCE_ROOT_PATH, iconResourceDir);
@@ -149,7 +149,7 @@ async function saveIconAsync(
 
     const resizedIcon = (
       await generateImageAsync(
-        { projectRoot, cacheType: "onesignal-icon" },
+        { projectRoot, cacheType: "cleverpush-icon" },
         {
           src: icon,
           width: dirsToSize[iconResourceDir],
@@ -164,7 +164,7 @@ async function saveIconAsync(
   }
 }
 
-export const withOneSignalAndroid: ConfigPlugin<OneSignalPluginProps> = (
+export const withCleverPushAndroid: ConfigPlugin<CleverPushPluginProps> = (
   config,
   props
 ) => {

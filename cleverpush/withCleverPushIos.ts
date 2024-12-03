@@ -23,9 +23,9 @@ import {
 } from "../support/iosConstants";
 import { updatePodfile } from "../support/updatePodfile";
 import NseUpdaterManager from "../support/NseUpdaterManager";
-import { OneSignalLog } from "../support/OneSignalLog";
+import { CleverPushLog } from "../support/CleverPushLog";
 import { FileManager } from "../support/FileManager";
-import { OneSignalPluginProps } from "../types/types";
+import { CleverPushPluginProps } from "../types/types";
 // import assert from "assert";
 // import getEasManagedCredentialsConfigExtra from "../support/eas/getEasManagedCredentialsConfigExtra";
 // import { ExpoConfig } from "@expo/config-types";
@@ -34,18 +34,18 @@ import { OneSignalPluginProps } from "../types/types";
  * Add 'aps-environment' record with current environment to '<project-name>.entitlements' file
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
-const withAppEnvironment: ConfigPlugin<OneSignalPluginProps> = (
+const withAppEnvironment: ConfigPlugin<CleverPushPluginProps> = (
   config,
-  onesignalProps
+  cleverpushProps
 ) => {
   return withEntitlementsPlist(config, (newConfig) => {
-    if (onesignalProps?.mode == null) {
+    if (cleverpushProps?.mode == null) {
       throw new Error(`
         Missing required "mode" key in your app.json or app.config.js file for "cleverpush-expo-plugin".
         "mode" can be either "development" or "production".
         Please see cleverpush-expo-plugin's README.md for more details.`);
     }
-    newConfig.modResults["aps-environment"] = onesignalProps.mode;
+    newConfig.modResults["aps-environment"] = cleverpushProps.mode;
     return newConfig;
   });
 };
@@ -54,9 +54,9 @@ const withAppEnvironment: ConfigPlugin<OneSignalPluginProps> = (
  * Add "Background Modes -> Remote notifications" and "App Group" permissions
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
-const withRemoteNotificationsPermissions: ConfigPlugin<OneSignalPluginProps> = (
-  config
-) => {
+const withRemoteNotificationsPermissions: ConfigPlugin<
+  CleverPushPluginProps
+> = (config) => {
   const BACKGROUND_MODE_KEYS = ["remote-notification"];
   return withInfoPlist(config, (newConfig) => {
     if (!Array.isArray(newConfig.modResults.UIBackgroundModes)) {
@@ -76,7 +76,7 @@ const withRemoteNotificationsPermissions: ConfigPlugin<OneSignalPluginProps> = (
  * Add "App Group" permission
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps (step 4.4)
  */
-const withAppGroupPermissions: ConfigPlugin<OneSignalPluginProps> = (
+const withAppGroupPermissions: ConfigPlugin<CleverPushPluginProps> = (
   config
 ) => {
   const APP_GROUP_KEY = "com.apple.security.application-groups";
@@ -97,7 +97,7 @@ const withAppGroupPermissions: ConfigPlugin<OneSignalPluginProps> = (
   });
 };
 
-// const withEasManagedCredentials: ConfigPlugin<OneSignalPluginProps> = (
+// const withEasManagedCredentials: ConfigPlugin<CleverPushPluginProps> = (
 //   config
 // ) => {
 //   assert(
@@ -108,14 +108,14 @@ const withAppGroupPermissions: ConfigPlugin<OneSignalPluginProps> = (
 //   return config;
 // };
 
-const withOneSignalPodfile: ConfigPlugin<OneSignalPluginProps> = (config) => {
+const withCleverPushPodfile: ConfigPlugin<CleverPushPluginProps> = (config) => {
   return withDangerousMod(config, [
     "ios",
     async (config) => {
       // not awaiting in order to not block main thread
       const iosRoot = path.join(config.modRequest.projectRoot, "ios");
       updatePodfile(iosRoot).catch((err) => {
-        OneSignalLog.error(err);
+        CleverPushLog.error(err);
       });
 
       return config;
@@ -123,7 +123,7 @@ const withOneSignalPodfile: ConfigPlugin<OneSignalPluginProps> = (config) => {
   ]);
 };
 
-const withOneSignalNSE: ConfigPlugin<OneSignalPluginProps> = (
+const withCleverPushNSE: ConfigPlugin<CleverPushPluginProps> = (
   config,
   props
 ) => {
@@ -171,7 +171,7 @@ const withOneSignalNSE: ConfigPlugin<OneSignalPluginProps> = (
   ]);
 };
 
-const withOneSignalXcodeProject: ConfigPlugin<OneSignalPluginProps> = (
+const withCleverPushXcodeProject: ConfigPlugin<CleverPushPluginProps> = (
   config,
   props
 ) => {
@@ -179,7 +179,7 @@ const withOneSignalXcodeProject: ConfigPlugin<OneSignalPluginProps> = (
     const xcodeProject = newConfig.modResults;
 
     if (!!xcodeProject.pbxTargetByName(NSE_TARGET_NAME)) {
-      OneSignalLog.log(
+      CleverPushLog.log(
         `${NSE_TARGET_NAME} already exists in project. Skipping...`
       );
       return newConfig;
@@ -274,16 +274,16 @@ const withOneSignalXcodeProject: ConfigPlugin<OneSignalPluginProps> = (
   });
 };
 
-export const withOneSignalIos: ConfigPlugin<OneSignalPluginProps> = (
+export const withCleverPushIos: ConfigPlugin<CleverPushPluginProps> = (
   config,
   props
 ) => {
   config = withAppEnvironment(config, props);
   config = withRemoteNotificationsPermissions(config, props);
   config = withAppGroupPermissions(config, props);
-  config = withOneSignalPodfile(config, props);
-  config = withOneSignalNSE(config, props);
-  config = withOneSignalXcodeProject(config, props);
+  config = withCleverPushPodfile(config, props);
+  config = withCleverPushNSE(config, props);
+  config = withCleverPushXcodeProject(config, props);
   // config = withEasManagedCredentials(config, props);
   return config;
 };

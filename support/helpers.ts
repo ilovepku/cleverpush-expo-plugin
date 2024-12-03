@@ -1,13 +1,13 @@
-import { ONESIGNAL_PLUGIN_PROPS } from "../types/types";
+import { CLEVERPUSH_PLUGIN_PROPS } from "../types/types";
 
 export function validatePluginProps(props: any): void {
   // check the type of each property
   if (typeof props.mode !== "string") {
-    throw new Error("OneSignal Expo Plugin: 'mode' must be a string.");
+    throw new Error("CleverPush Expo Plugin: 'mode' must be a string.");
   }
 
   if (props.devTeam && typeof props.devTeam !== "string") {
-    throw new Error("OneSignal Expo Plugin: 'devTeam' must be a string.");
+    throw new Error("CleverPush Expo Plugin: 'devTeam' must be a string.");
   }
 
   if (
@@ -15,12 +15,12 @@ export function validatePluginProps(props: any): void {
     typeof props.iPhoneDeploymentTarget !== "string"
   ) {
     throw new Error(
-      "OneSignal Expo Plugin: 'iPhoneDeploymentTarget' must be a string."
+      "CleverPush Expo Plugin: 'iPhoneDeploymentTarget' must be a string."
     );
   }
 
   if (props.smallIcons && !Array.isArray(props.smallIcons)) {
-    throw new Error("OneSignal Expo Plugin: 'smallIcons' must be an array.");
+    throw new Error("CleverPush Expo Plugin: 'smallIcons' must be an array.");
   }
 
   if (
@@ -28,17 +28,17 @@ export function validatePluginProps(props: any): void {
     typeof props.smallIconAccentColor !== "string"
   ) {
     throw new Error(
-      "OneSignal Expo Plugin: 'smallIconAccentColor' must be a string."
+      "CleverPush Expo Plugin: 'smallIconAccentColor' must be a string."
     );
   }
 
   if (props.largeIcons && !Array.isArray(props.largeIcons)) {
-    throw new Error("OneSignal Expo Plugin: 'largeIcons' must be an array.");
+    throw new Error("CleverPush Expo Plugin: 'largeIcons' must be an array.");
   }
 
   if (props.iosNSEFilePath && typeof props.iosNSEFilePath !== "string") {
     throw new Error(
-      "OneSignal Expo Plugin: 'iosNSEFilePath' must be a string."
+      "CleverPush Expo Plugin: 'iosNSEFilePath' must be a string."
     );
   }
 
@@ -46,9 +46,9 @@ export function validatePluginProps(props: any): void {
   const inputProps = Object.keys(props);
 
   for (const prop of inputProps) {
-    if (!ONESIGNAL_PLUGIN_PROPS.includes(prop)) {
+    if (!CLEVERPUSH_PLUGIN_PROPS.includes(prop)) {
       throw new Error(
-        `OneSignal Expo Plugin: You have provided an invalid property "${prop}" to the OneSignal plugin.`
+        `CleverPush Expo Plugin: You have provided an invalid property "${prop}" to the CleverPush plugin.`
       );
     }
   }

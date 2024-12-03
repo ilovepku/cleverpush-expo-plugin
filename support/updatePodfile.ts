@@ -4,7 +4,7 @@ import {
   NSE_PODFILE_SNIPPET,
   NSE_TARGET_NAME,
 } from "./iosConstants";
-import { OneSignalLog } from "./OneSignalLog";
+import { CleverPushLog } from "./CleverPushLog";
 import { FileManager } from "./FileManager";
 
 export async function updatePodfile(iosPath: string) {
@@ -12,13 +12,13 @@ export async function updatePodfile(iosPath: string) {
   const matches = podfile.match(NSE_PODFILE_REGEX);
 
   if (matches) {
-    OneSignalLog.log(
+    CleverPushLog.log(
       NSE_TARGET_NAME + " target already added to Podfile. Skipping..."
     );
   } else {
     fs.appendFile(`${iosPath}/Podfile`, NSE_PODFILE_SNIPPET, (err) => {
       if (err) {
-        OneSignalLog.error("Error writing to Podfile");
+        CleverPushLog.error("Error writing to Podfile");
       }
     });
   }

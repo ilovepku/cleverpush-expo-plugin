@@ -1,7 +1,7 @@
 /**
- * OneSignalPluginProps refer to the properties set by the user in their app config file (e.g: app.json)
+ * CleverPushPluginProps refer to the properties set by the user in their app config file (e.g: app.json)
  */
-export type OneSignalPluginProps = {
+export type CleverPushPluginProps = {
   /**
    * (required) Used to configure APNs environment entitlement. "development" or "production"
    */
@@ -42,7 +42,7 @@ export type OneSignalPluginProps = {
   iosNSEFilePath?: string;
 };
 
-export const ONESIGNAL_PLUGIN_PROPS: string[] = [
+export const CLEVERPUSH_PLUGIN_PROPS: string[] = [
   "mode",
   "devTeam",
   "iPhoneDeploymentTarget",
