@@ -13,8 +13,8 @@ import {
 import * as fs from "fs";
 import * as path from "path";
 import {
-  DEFAULT_BUNDLE_SHORT_VERSION,
-  DEFAULT_BUNDLE_VERSION,
+  // DEFAULT_BUNDLE_SHORT_VERSION,
+  // DEFAULT_BUNDLE_VERSION,
   IPHONEOS_DEPLOYMENT_TARGET,
   NSE_TARGET_NAME,
   NSE_SOURCE_FILE,
@@ -159,12 +159,12 @@ const withOneSignalNSE: ConfigPlugin<OneSignalPluginProps> = (
       await nseUpdater.updateNSEEntitlements(
         `group.${config.ios?.bundleIdentifier}.cleverpush`
       );
-      await nseUpdater.updateNSEBundleVersion(
-        config.ios?.buildNumber ?? DEFAULT_BUNDLE_VERSION
-      );
-      await nseUpdater.updateNSEBundleShortVersion(
-        config?.version ?? DEFAULT_BUNDLE_SHORT_VERSION
-      );
+      // await nseUpdater.updateNSEBundleVersion(
+      //   config.ios?.buildNumber ?? DEFAULT_BUNDLE_VERSION
+      // );
+      // await nseUpdater.updateNSEBundleShortVersion(
+      //   config?.version ?? DEFAULT_BUNDLE_SHORT_VERSION
+      // );
 
       return config;
     },
