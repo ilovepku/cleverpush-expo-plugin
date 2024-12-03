@@ -1,17 +1,17 @@
-import { FileManager } from './FileManager';
+import { FileManager } from "./FileManager";
 import {
   BUNDLE_SHORT_VERSION_TEMPLATE_REGEX,
   BUNDLE_VERSION_TEMPLATE_REGEX,
   GROUP_IDENTIFIER_TEMPLATE_REGEX,
-  NSE_TARGET_NAME
-} from './iosConstants';
+  NSE_TARGET_NAME,
+} from "./iosConstants";
 
 // project `ios/OneSignalNotificationServiceExtension` directory
-const entitlementsFileName =`OneSignalNotificationServiceExtension.entitlements`;
+const entitlementsFileName = `OneSignalNotificationServiceExtension.entitlements`;
 const plistFileName = `OneSignalNotificationServiceExtension-Info.plist`;
 
 export default class NseUpdaterManager {
-  private nsePath = '';
+  private nsePath = "";
   constructor(iosPath: string) {
     this.nsePath = `${iosPath}/${NSE_TARGET_NAME}`;
   }
@@ -20,7 +20,10 @@ export default class NseUpdaterManager {
     const entitlementsFilePath = `${this.nsePath}/${entitlementsFileName}`;
     let entitlementsFile = await FileManager.readFile(entitlementsFilePath);
 
-    entitlementsFile = entitlementsFile.replace(GROUP_IDENTIFIER_TEMPLATE_REGEX, groupIdentifier);
+    entitlementsFile = entitlementsFile.replace(
+      GROUP_IDENTIFIER_TEMPLATE_REGEX,
+      groupIdentifier
+    );
     await FileManager.writeFile(entitlementsFilePath, entitlementsFile);
   }
 
