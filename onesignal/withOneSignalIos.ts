@@ -26,9 +26,9 @@ import NseUpdaterManager from "../support/NseUpdaterManager";
 import { OneSignalLog } from "../support/OneSignalLog";
 import { FileManager } from "../support/FileManager";
 import { OneSignalPluginProps } from "../types/types";
-import assert from "assert";
-import getEasManagedCredentialsConfigExtra from "../support/eas/getEasManagedCredentialsConfigExtra";
-import { ExpoConfig } from "@expo/config-types";
+// import assert from "assert";
+// import getEasManagedCredentialsConfigExtra from "../support/eas/getEasManagedCredentialsConfigExtra";
+// import { ExpoConfig } from "@expo/config-types";
 
 /**
  * Add 'aps-environment' record with current environment to '<project-name>.entitlements' file
@@ -97,16 +97,16 @@ const withAppGroupPermissions: ConfigPlugin<OneSignalPluginProps> = (
   });
 };
 
-const withEasManagedCredentials: ConfigPlugin<OneSignalPluginProps> = (
-  config
-) => {
-  assert(
-    config.ios?.bundleIdentifier,
-    "Missing 'ios.bundleIdentifier' in app config."
-  );
-  config.extra = getEasManagedCredentialsConfigExtra(config as ExpoConfig);
-  return config;
-};
+// const withEasManagedCredentials: ConfigPlugin<OneSignalPluginProps> = (
+//   config
+// ) => {
+//   assert(
+//     config.ios?.bundleIdentifier,
+//     "Missing 'ios.bundleIdentifier' in app config."
+//   );
+//   config.extra = getEasManagedCredentialsConfigExtra(config as ExpoConfig);
+//   return config;
+// };
 
 const withOneSignalPodfile: ConfigPlugin<OneSignalPluginProps> = (config) => {
   return withDangerousMod(config, [
@@ -284,6 +284,6 @@ export const withOneSignalIos: ConfigPlugin<OneSignalPluginProps> = (
   config = withOneSignalPodfile(config, props);
   config = withOneSignalNSE(config, props);
   config = withOneSignalXcodeProject(config, props);
-  config = withEasManagedCredentials(config, props);
+  // config = withEasManagedCredentials(config, props);
   return config;
 };
