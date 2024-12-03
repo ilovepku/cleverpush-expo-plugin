@@ -1,4 +1,4 @@
-#import <OneSignalFramework/OneSignalFramework.h>
+#import <CleverPush/CleverPush.h>
 
 #import "NotificationService.h"
 
@@ -16,13 +16,15 @@
     self.receivedRequest = request;
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    [OneSignal didReceiveNotificationExtensionRequest:self.receivedRequest
-                       withMutableNotificationContent:self.bestAttemptContent
-                                   withContentHandler:self.contentHandler];
+
+    [CleverPush didReceiveNotificationExtensionRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
+
+    self.contentHandler(self.bestAttemptContent);
 }
 
 - (void)serviceExtensionTimeWillExpire {
-    [OneSignal serviceExtensionTimeWillExpireRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
+    [CleverPush serviceExtensionTimeWillExpireRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
+
     self.contentHandler(self.bestAttemptContent);
 }
 
