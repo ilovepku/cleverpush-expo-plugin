@@ -87,7 +87,7 @@ const withAppGroupPermissions: ConfigPlugin<OneSignalPluginProps> = (
     const modResultsArray = newConfig.modResults[APP_GROUP_KEY] as Array<any>;
     const entitlement = `group.${
       newConfig?.ios?.bundleIdentifier || ""
-    }.onesignal`;
+    }.cleverpush`;
     if (modResultsArray.indexOf(entitlement) !== -1) {
       return newConfig;
     }
