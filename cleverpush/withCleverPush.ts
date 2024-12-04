@@ -5,7 +5,7 @@
 
 import { ConfigPlugin } from "@expo/config-plugins";
 import { CleverPushPluginProps } from "../types/types";
-import { withCleverPushAndroid } from "./withCleverPushAndroid";
+// import { withCleverPushAndroid } from "./withCleverPushAndroid";
 import { withCleverPushIos } from "./withCleverPushIos";
 import { validatePluginProps } from "../support/helpers";
 
@@ -20,7 +20,7 @@ const withCleverPush: ConfigPlugin<CleverPushPluginProps> = (config, props) => {
   validatePluginProps(props);
 
   config = withCleverPushIos(config, props);
-  config = withCleverPushAndroid(config, props);
+  // config = withCleverPushAndroid(config, props);
 
   return config;
 };
