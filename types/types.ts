@@ -40,6 +40,13 @@ export type CleverPushPluginProps = {
    * logic required.
    */
   iosNSEFilePath?: string;
+
+  /**
+   * (optional) The local path to a custom Notification Content Extension (NCE), written in Objective-C. The NCE will typically start as a copy
+   * of the default NCE found at (support/contentExtensionFiles/NotificationViewControlle.m, then altered to support any custom
+   * logic required.
+   */
+  iosNCEFilePath?: string;
 };
 
 export const CLEVERPUSH_PLUGIN_PROPS: string[] = [
@@ -49,6 +56,7 @@ export const CLEVERPUSH_PLUGIN_PROPS: string[] = [
   "smallIcons",
   "largeIcons",
   "iosNSEFilePath",
+  "iosNCEFilePath",
   "smallIconAccentColor",
 ];
 

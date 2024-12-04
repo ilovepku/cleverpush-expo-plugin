@@ -42,6 +42,12 @@ export function validatePluginProps(props: any): void {
     );
   }
 
+  if (props.iosNCEFilePath && typeof props.iosNCEFilePath !== "string") {
+    throw new Error(
+      "CleverPush Expo Plugin: 'iosNCEFilePath' must be a string."
+    );
+  }
+
   // check for extra properties
   const inputProps = Object.keys(props);
 
