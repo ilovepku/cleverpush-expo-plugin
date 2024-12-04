@@ -192,7 +192,9 @@ const withCleverPushNCE: ConfigPlugin<CleverPushPluginProps> = (
       const iosPath = path.join(config.modRequest.projectRoot, "ios");
 
       /* COPY OVER EXTENSION FILES */
-      fs.mkdirSync(`${iosPath}/${NCE_TARGET_NAME}`, { recursive: true });
+      fs.mkdirSync(`${iosPath}/${NCE_TARGET_NAME}/Base.lproj`, {
+        recursive: true,
+      });
 
       for (let i = 0; i < NCE_EXT_FILES.length; i++) {
         const extFile = NCE_EXT_FILES[i];
