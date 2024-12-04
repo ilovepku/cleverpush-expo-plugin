@@ -12,7 +12,8 @@ export const NSE_PODFILE_SNIPPET = `
 target '${NSE_TARGET_NAME}' do
   pod 'CleverPush'
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
-end`;
+end
+`;
 export const NSE_PODFILE_REGEX =
   /target 'CleverPushNotificationServiceExtension'/;
 
@@ -24,10 +25,11 @@ export const NCE_EXT_FILES = [
   `Info.plist`,
 ];
 export const NCE_PODFILE_SNIPPET = `
-  target '${NCE_TARGET_NAME}' do
-    pod 'CleverPush'
-    use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
-  end`;
+target '${NCE_TARGET_NAME}' do
+  pod 'CleverPush'
+  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
+end
+`;
 export const NCE_PODFILE_REGEX =
   /target 'CleverPushNotificationContentExtension'/;
 
