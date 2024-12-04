@@ -208,9 +208,6 @@ const withCleverPushNCE: ConfigPlugin<CleverPushPluginProps> = (
 
       /* MODIFY COPIED EXTENSION FILES */
       const nceUpdater = new NceUpdaterManager(iosPath);
-      await nceUpdater.updateNCEEntitlements(
-        `group.${config.ios?.bundleIdentifier}.cleverpush`
-      );
       await nceUpdater.updateNCEBundleVersion(
         config.ios?.buildNumber ?? DEFAULT_BUNDLE_VERSION
       );
@@ -413,7 +410,6 @@ const withCleverPushXcodeProjectNce: ConfigPlugin<CleverPushPluginProps> = (
         buildSettingsObj.IPHONEOS_DEPLOYMENT_TARGET =
           props?.iPhoneDeploymentTarget ?? IPHONEOS_DEPLOYMENT_TARGET;
         buildSettingsObj.TARGETED_DEVICE_FAMILY = TARGETED_DEVICE_FAMILY;
-        buildSettingsObj.CODE_SIGN_ENTITLEMENTS = `${NCE_TARGET_NAME}/${NCE_TARGET_NAME}.entitlements`;
         buildSettingsObj.CODE_SIGN_STYLE = "Automatic";
       }
     }
