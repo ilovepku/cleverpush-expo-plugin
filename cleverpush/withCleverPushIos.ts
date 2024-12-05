@@ -163,12 +163,6 @@ const withCleverPushNSE: ConfigPlugin<CleverPushPluginProps> = (
       await nseUpdater.updateNSEEntitlements(
         `group.${config.ios?.bundleIdentifier}.cleverpush`
       );
-      // await nseUpdater.updateNSEBundleVersion(
-      //   config.ios?.buildNumber ?? DEFAULT_BUNDLE_VERSION
-      // );
-      // await nseUpdater.updateNSEBundleShortVersion(
-      //   config?.version ?? DEFAULT_BUNDLE_SHORT_VERSION
-      // );
 
       return config;
     },
