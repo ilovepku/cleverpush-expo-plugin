@@ -295,24 +295,61 @@ const withCleverPushXcodeProject: ConfigPlugin<
     // Edit the Deployment info of the new Target, only IphoneOS and Targeted Device Family
     // However, can be more
     const configurations = xcodeProject.pbxXCBuildConfigurationSection();
-    Object.values(configurations)
-      .filter(
-        (config: any) =>
-          config.buildSettings?.PRODUCT_NAME === `"${props.targetName}"`
-      )
-      .forEach((config: any) => {
-        const buildSettings = config.buildSettings;
-        buildSettings.DEVELOPMENT_TEAM = props?.devTeam;
-        buildSettings.IPHONEOS_DEPLOYMENT_TARGET =
-          props?.iPhoneDeploymentTarget ?? IPHONEOS_DEPLOYMENT_TARGET;
-        buildSettings.TARGETED_DEVICE_FAMILY = TARGETED_DEVICE_FAMILY;
-        buildSettings.CODE_SIGN_STYLE = "Automatic";
+    for (const key in configurations) {
+      if (
+        typeof configurations[key].buildSettings !== "undefined" &&
+        configurations[key].buildSettings.PRODUCT_NAME ==
+          `"${props.targetName}"`
+      ) {
+        const isDebug = key.includes("Debug");
+        const buildSettingsObj = configurations[key].buildSettings;
 
+        buildSettingsObj.ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS =
+          "YES";
+        buildSettingsObj.CLANG_ANALYZER_NONNULL = "YES";
+        buildSettingsObj.CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION =
+          "YES_AGGRESSIVE";
+        buildSettingsObj.CLANG_CXX_LANGUAGE_STANDARD = '"gnu++20"';
+        buildSettingsObj.CLANG_ENABLE_OBJC_WEAK = "YES";
+        buildSettingsObj.CLANG_WARN_DOCUMENTATION_COMMENTS = "YES";
+        buildSettingsObj.CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "YES";
+        buildSettingsObj.CLANG_WARN_UNGUARDED_AVAILABILITY = "YES_AGGRESSIVE";
         // Conditionally add entitlements for NSE target
         if (props.targetName === NSE_TARGET_NAME) {
-          buildSettings.CODE_SIGN_ENTITLEMENTS = `${props.targetName}/${props.targetName}.entitlements`;
+          buildSettingsObj.CODE_SIGN_ENTITLEMENTS = `${props.targetName}/${props.targetName}.entitlements`;
         }
-      });
+        buildSettingsObj.CODE_SIGN_STYLE = "Automatic";
+        if (!isDebug) {
+          buildSettingsObj.COPY_PHASE_STRIP = "NO";
+        }
+        buildSettingsObj.CURRENT_PROJECT_VERSION = "1";
+        buildSettingsObj.DEBUG_INFORMATION_FORMAT = isDebug
+          ? "dwarf-with-dsym"
+          : "dwarf";
+        buildSettingsObj.DEVELOPMENT_TEAM = props?.devTeam;
+        buildSettingsObj.ENABLE_USER_SCRIPT_SANDBOXING = "NO";
+        buildSettingsObj.GCC_C_LANGUAGE_STANDARD = "gnu17";
+        buildSettingsObj.GENERATE_INFOPLIST_FILE = "YES";
+        buildSettingsObj.INFOPLIST_FILE = `${props.targetName}/Info.plist`;
+        buildSettingsObj.INFOPLIST_KEY_CFBundleDisplayName = props.targetName;
+        buildSettingsObj.INFOPLIST_KEY_NSHumanReadableCopyright = '""';
+        buildSettingsObj.IPHONEOS_DEPLOYMENT_TARGET =
+          props?.iPhoneDeploymentTarget ?? IPHONEOS_DEPLOYMENT_TARGET;
+        buildSettingsObj.LD_RUNPATH_SEARCH_PATHS = `(
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				)`;
+        buildSettingsObj.LOCALIZATION_PREFERS_STRING_CATALOGS = "YES";
+        buildSettingsObj.MARKETING_VERSION = "1.0";
+        if (isDebug) {
+          buildSettingsObj.MTL_ENABLE_DEBUG_INFO = "INCLUDE_SOURCE";
+        }
+        buildSettingsObj.MTL_FAST_MATH = "YES";
+        buildSettingsObj.SWIFT_EMIT_LOC_STRINGS = "YES";
+        buildSettingsObj.TARGETED_DEVICE_FAMILY = TARGETED_DEVICE_FAMILY;
+      }
+    }
 
     // Add development teams
     xcodeProject.addTargetAttribute("DevelopmentTeam", props?.devTeam, target);
