@@ -6,7 +6,7 @@ export const NSE_SOURCE_FILE = "NotificationService.m";
 export const NSE_EXT_FILES = [
   "NotificationService.h",
   `${NSE_TARGET_NAME}.entitlements`,
-  `Info.plist`,
+  `CleverPushNotificationServiceExtension-Info.plist`,
 ];
 export const NSE_PODFILE_SNIPPET = `
 target '${NSE_TARGET_NAME}' do
@@ -22,7 +22,7 @@ export const NCE_SOURCE_FILE = "NotificationViewController.m";
 export const NCE_EXT_FILES = [
   "NotificationViewController.h",
   `Base.lproj/MainInterface.storyboard`,
-  `Info.plist`,
+  `CleverPushNotificationContentExtension-Info.plist`,
 ];
 export const NCE_PODFILE_SNIPPET = `
 target '${NCE_TARGET_NAME}' do

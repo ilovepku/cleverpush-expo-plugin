@@ -6,7 +6,7 @@ import {
 } from "./iosConstants";
 
 // project `ios/CleverPushNotificationContentExtension` directory
-const plistFileName = `Info.plist`;
+const plistFileName = `CleverPushNotificationContentExtension-Info.plist`;
 
 export default class NceUpdaterManager {
   private ncePath = "";

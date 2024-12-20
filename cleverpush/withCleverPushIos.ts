@@ -3,33 +3,36 @@
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
 
+import * as fs from "fs";
+import * as path from "path";
+
 import {
   ConfigPlugin,
+  withDangerousMod,
   withEntitlementsPlist,
   withInfoPlist,
   withXcodeProject,
-  withDangerousMod,
 } from "@expo/config-plugins";
-import * as fs from "fs";
-import * as path from "path";
+
+import { CleverPushLog } from "../support/CleverPushLog";
+import { FileManager } from "../support/FileManager";
 import {
   DEFAULT_BUNDLE_SHORT_VERSION,
   DEFAULT_BUNDLE_VERSION,
   IPHONEOS_DEPLOYMENT_TARGET,
-  NSE_TARGET_NAME,
-  NSE_SOURCE_FILE,
-  NSE_EXT_FILES,
-  TARGETED_DEVICE_FAMILY,
-  NCE_TARGET_NAME,
-  NCE_SOURCE_FILE,
   NCE_EXT_FILES,
+  NCE_SOURCE_FILE,
+  NCE_TARGET_NAME,
+  NSE_EXT_FILES,
+  NSE_SOURCE_FILE,
+  NSE_TARGET_NAME,
+  TARGETED_DEVICE_FAMILY,
 } from "../support/iosConstants";
-import { updatePodfile } from "../support/updatePodfile";
-import NseUpdaterManager from "../support/NseUpdaterManager";
 import NceUpdaterManager from "../support/NceUpdaterManager";
-import { CleverPushLog } from "../support/CleverPushLog";
-import { FileManager } from "../support/FileManager";
+import NseUpdaterManager from "../support/NseUpdaterManager";
+import { updatePodfile } from "../support/updatePodfile";
 import { CleverPushPluginProps } from "../types/types";
+
 // import assert from "assert";
 // import getEasManagedCredentialsConfigExtra from "../support/eas/getEasManagedCredentialsConfigExtra";
 // import { ExpoConfig } from "@expo/config-types";
@@ -330,7 +333,7 @@ const withCleverPushXcodeProject: ConfigPlugin<
         buildSettingsObj.ENABLE_USER_SCRIPT_SANDBOXING = "NO";
         buildSettingsObj.GCC_C_LANGUAGE_STANDARD = "gnu17";
         buildSettingsObj.GENERATE_INFOPLIST_FILE = "YES";
-        buildSettingsObj.INFOPLIST_FILE = `${props.targetName}/Info.plist`;
+        buildSettingsObj.INFOPLIST_FILE = `${props.targetName}/${props.targetName}-Info.plist`;
         buildSettingsObj.INFOPLIST_KEY_CFBundleDisplayName = props.targetName;
         buildSettingsObj.INFOPLIST_KEY_NSHumanReadableCopyright = '""';
         buildSettingsObj.IPHONEOS_DEPLOYMENT_TARGET =
