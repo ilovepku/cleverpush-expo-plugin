@@ -298,7 +298,7 @@ const withCleverPushXcodeProject: ConfigPlugin<
         configurations[key].buildSettings.PRODUCT_NAME ==
           `"${props.targetName}"`
       ) {
-        const isDebug = key.includes("Debug");
+        const isDebug = configurations[key].name.includes("Debug");
         const buildSettingsObj = configurations[key].buildSettings;
 
         buildSettingsObj.ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS =
