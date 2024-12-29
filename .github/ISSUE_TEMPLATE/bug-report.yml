@@ -3,7 +3,7 @@ description: File a bug report
 title: "[Bug]: "
 labels: ["bug", "triage"]
 # assignees:
-#   - assign your sdk team e.g., onesignal/unity
+#   - assign your sdk team
 body:
   - type: markdown
     attributes:
@@ -41,8 +41,8 @@ body:
   - type: textarea
     id: expo-sdk-version
     attributes:
-      label: OneSignal Expo SDK version
-      description: The version of the OneSignal Expo SDK used in your app.
+      label: CleverPush Expo SDK version
+      description: The version of the CleverPush Expo SDK used in your app.
       placeholder: 1.0.0
     validations:
       required: true

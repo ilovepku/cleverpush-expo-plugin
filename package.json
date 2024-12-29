@@ -1,7 +1,7 @@
 {
   "name": "cleverpush-expo-plugin",
-  "version": "2.0.3",
-  "description": "The CleverPush Expo plugin allows you to use CleverPush without leaving the managed workflow. Developed in collaboration with SweetGreen.",
+  "version": "1.0.0",
+  "description": "The CleverPush Expo plugin allows you to use CleverPush without leaving the managed workflow. Forked from onesignal-expo-plugin.",
   "main": "./app.plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,13 +20,14 @@
     "notifications",
     "EAS"
   ],
-  "author": "rgomezp",
+  "author": "ilovepku",
   "contributors": [
     "Karen Grigoryan",
     "Rodrigo Gomez-Palacio",
     "Charlie Cruzan",
     "Wojciech Kozyra",
-    "Brian Smith"
+    "Brian Smith",
+    "Sean Lee"
   ],
   "license": "MIT",
   "bugs": {

@@ -1,6 +1,5 @@
 /**
- * Expo config plugin for One Signal (iOS)
- * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
+ * Expo config plugin for CleverPush (iOS)
  */
 
 import * as fs from 'fs';
@@ -33,7 +32,6 @@ import { CleverPushPluginProps } from '../types/types';
 
 /**
  * Add 'aps-environment' record with current environment to '<project-name>.entitlements' file
- * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
 const withAppEnvironment: ConfigPlugin<CleverPushPluginProps> = (
   config,
@@ -53,7 +51,6 @@ const withAppEnvironment: ConfigPlugin<CleverPushPluginProps> = (
 
 /**
  * Add "Background Modes -> Remote notifications" and "App Group" permissions
- * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
 const withRemoteNotificationsPermissions: ConfigPlugin<
   CleverPushPluginProps
@@ -75,7 +72,6 @@ const withRemoteNotificationsPermissions: ConfigPlugin<
 
 /**
  * Add "App Group" permission
- * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps (step 4.4)
  */
 const withAppGroupPermissions: ConfigPlugin<CleverPushPluginProps> = (
   config

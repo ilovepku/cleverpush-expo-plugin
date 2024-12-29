@@ -1,18 +1,19 @@
 /**
  * Expo config plugin for CleverPush (Android)
- * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
+
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { parse, resolve } from 'path';
 
 import {
   ConfigPlugin,
   withDangerousMod,
   withStringsXml,
-} from "@expo/config-plugins";
-import { generateImageAsync } from "@expo/image-utils";
-import { CleverPushLog } from "../support/CleverPushLog";
-import { CleverPushPluginProps } from "../types/types";
-import { resolve, parse } from "path";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+} from '@expo/config-plugins';
+import { generateImageAsync } from '@expo/image-utils';
+
+import { CleverPushLog } from '../support/CleverPushLog';
+import { CleverPushPluginProps } from '../types/types';
 
 const RESOURCE_ROOT_PATH = "android/app/src/main/res/";
 

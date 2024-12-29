@@ -3,7 +3,7 @@ description: Tell us what's on your mind
 title: "[feedback]: "
 labels: ["triage"]
 # assignees:
-#   - assign your sdk team e.g., onesignal/unity
+#   - assign your sdk team
 body:
   - type: markdown
     attributes:

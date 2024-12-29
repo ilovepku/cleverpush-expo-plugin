@@ -3,7 +3,7 @@ description: Tell us what's on your mind
 title: "[question]: "
 labels: ["triage"]
 # assignees:
-#   - assign your sdk team e.g., onesignal/unity
+#   - assign your sdk team
 body:
   - type: markdown
     attributes:
@@ -20,8 +20,8 @@ body:
   - type: textarea
     id: expo-sdk-version
     attributes:
-      label: OneSignal Expo SDK version
-      description: The version of the OneSignal Expo SDK you have a question for.
+      label: CleverPush Expo SDK version
+      description: The version of the CleverPush Expo SDK you have a question for.
       placeholder: 1.0.0
     validations:
       required: true
