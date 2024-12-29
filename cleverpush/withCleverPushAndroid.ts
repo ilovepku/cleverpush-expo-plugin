@@ -7,6 +7,7 @@ import { parse, resolve } from 'path';
 
 import {
   ConfigPlugin,
+  withAppBuildGradle,
   withDangerousMod,
   withStringsXml,
 } from '@expo/config-plugins';
@@ -16,6 +17,22 @@ import { CleverPushLog } from '../support/CleverPushLog';
 import { CleverPushPluginProps } from '../types/types';
 
 const RESOURCE_ROOT_PATH = "android/app/src/main/res/";
+
+const PATTERN = "apply plugin: 'com.google.gms.google-services'";
+const REPLACEMENT = "googleServices {\n    disableVersionCheck = true\n}";
+
+const addGoogleServicesDisableVersionCheckToAndroidAppBuildGradle: ConfigPlugin =
+  (config) => {
+    return withAppBuildGradle(config, (config) => {
+      if (!config.modResults.contents.includes(REPLACEMENT)) {
+        config.modResults.contents = config.modResults.contents.replace(
+          PATTERN,
+          `${PATTERN}\n${REPLACEMENT}`
+        );
+      }
+      return config;
+    });
+  };
 
 // The name of each small icon folder resource, and the icon size for that folder.
 const SMALL_ICON_DIRS_TO_SIZE: { [name: string]: number } = {
@@ -169,6 +186,7 @@ export const withCleverPushAndroid: ConfigPlugin<CleverPushPluginProps> = (
   config,
   props
 ) => {
+  config = addGoogleServicesDisableVersionCheckToAndroidAppBuildGradle(config);
   config = withSmallIcons(config, props);
   config = withLargeIcons(config, props);
   config = withSmallIconAccentColor(config, props);
