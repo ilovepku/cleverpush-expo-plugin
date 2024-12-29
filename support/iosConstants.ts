@@ -17,22 +17,6 @@ end
 export const NSE_PODFILE_REGEX =
   /target 'CleverPushNotificationServiceExtension'/;
 
-export const NCE_TARGET_NAME = "CleverPushNotificationContentExtension";
-export const NCE_SOURCE_FILE = "NotificationViewController.m";
-export const NCE_EXT_FILES = [
-  "NotificationViewController.h",
-  `Base.lproj/MainInterface.storyboard`,
-  `CleverPushNotificationContentExtension-Info.plist`,
-];
-export const NCE_PODFILE_SNIPPET = `
-target '${NCE_TARGET_NAME}' do
-  pod 'CleverPush'
-  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
-end
-`;
-export const NCE_PODFILE_REGEX =
-  /target 'CleverPushNotificationContentExtension'/;
-
 export const GROUP_IDENTIFIER_TEMPLATE_REGEX = /{{GROUP_IDENTIFIER}}/gm;
 export const BUNDLE_SHORT_VERSION_TEMPLATE_REGEX = /{{BUNDLE_SHORT_VERSION}}/gm;
 export const BUNDLE_VERSION_TEMPLATE_REGEX = /{{BUNDLE_VERSION}}/gm;

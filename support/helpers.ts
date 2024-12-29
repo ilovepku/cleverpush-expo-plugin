@@ -1,4 +1,4 @@
-import { CLEVERPUSH_PLUGIN_PROPS } from "../types/types";
+import { CLEVERPUSH_PLUGIN_PROPS } from '../types/types';
 
 export function validatePluginProps(props: any): void {
   // check the type of each property
@@ -39,12 +39,6 @@ export function validatePluginProps(props: any): void {
   if (props.iosNSEFilePath && typeof props.iosNSEFilePath !== "string") {
     throw new Error(
       "CleverPush Expo Plugin: 'iosNSEFilePath' must be a string."
-    );
-  }
-
-  if (props.iosNCEFilePath && typeof props.iosNCEFilePath !== "string") {
-    throw new Error(
-      "CleverPush Expo Plugin: 'iosNCEFilePath' must be a string."
     );
   }
 

@@ -3,8 +3,8 @@
  * @see https://documentation.onesignal.com/docs/react-native-sdk-setup#step-4-install-for-ios-using-cocoapods-for-ios-apps
  */
 
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from 'fs';
+import * as path from 'path';
 
 import {
   ConfigPlugin,
@@ -12,20 +12,20 @@ import {
   withEntitlementsPlist,
   withInfoPlist,
   withXcodeProject,
-} from "@expo/config-plugins";
+} from '@expo/config-plugins';
 
-import { CleverPushLog } from "../support/CleverPushLog";
-import { FileManager } from "../support/FileManager";
+import { CleverPushLog } from '../support/CleverPushLog';
+import { FileManager } from '../support/FileManager';
 import {
   IPHONEOS_DEPLOYMENT_TARGET,
   NSE_EXT_FILES,
   NSE_SOURCE_FILE,
   NSE_TARGET_NAME,
   TARGETED_DEVICE_FAMILY,
-} from "../support/iosConstants";
-import NseUpdaterManager from "../support/NseUpdaterManager";
-import { updatePodfile } from "../support/updatePodfile";
-import { CleverPushPluginProps } from "../types/types";
+} from '../support/iosConstants';
+import NseUpdaterManager from '../support/NseUpdaterManager';
+import { updatePodfile } from '../support/updatePodfile';
+import { CleverPushPluginProps } from '../types/types';
 
 // import assert from "assert";
 // import getEasManagedCredentialsConfigExtra from "../support/eas/getEasManagedCredentialsConfigExtra";
@@ -165,53 +165,6 @@ const withCleverPushNSE: ConfigPlugin<CleverPushPluginProps> = (
     },
   ]);
 };
-
-// const withCleverPushNCE: ConfigPlugin<CleverPushPluginProps> = (
-//   config,
-//   props
-// ) => {
-//   // support for monorepos where node_modules can be above the project directory.
-//   const pluginDir = require.resolve("cleverpush-expo-plugin/package.json");
-//   const sourceDir = path.join(
-//     pluginDir,
-//     "../build/support/contentExtensionFiles/"
-//   );
-
-//   return withDangerousMod(config, [
-//     "ios",
-//     async (config) => {
-//       const iosPath = path.join(config.modRequest.projectRoot, "ios");
-
-//       /* COPY OVER EXTENSION FILES */
-//       fs.mkdirSync(`${iosPath}/${NCE_TARGET_NAME}/Base.lproj`, {
-//         recursive: true,
-//       });
-
-//       for (let i = 0; i < NCE_EXT_FILES.length; i++) {
-//         const extFile = NCE_EXT_FILES[i];
-//         const targetFile = `${iosPath}/${NCE_TARGET_NAME}/${extFile}`;
-//         await FileManager.copyFile(`${sourceDir}${extFile}`, targetFile);
-//       }
-
-//       // Copy NCE source file either from configuration-provided location, falling back to the default one.
-//       const sourcePath =
-//         props.iosNCEFilePath ?? `${sourceDir}${NCE_SOURCE_FILE}`;
-//       const targetFile = `${iosPath}/${NCE_TARGET_NAME}/${NCE_SOURCE_FILE}`;
-//       await FileManager.copyFile(`${sourcePath}`, targetFile);
-
-//       /* MODIFY COPIED EXTENSION FILES */
-//       const nceUpdater = new NceUpdaterManager(iosPath);
-//       await nceUpdater.updateNCEBundleVersion(
-//         config.ios?.buildNumber ?? DEFAULT_BUNDLE_VERSION
-//       );
-//       await nceUpdater.updateNCEBundleShortVersion(
-//         config?.version ?? DEFAULT_BUNDLE_SHORT_VERSION
-//       );
-
-//       return config;
-//     },
-//   ]);
-// };
 
 const withCleverPushXcodeProject: ConfigPlugin<
   CleverPushPluginProps & {
@@ -365,19 +318,12 @@ export const withCleverPushIos: ConfigPlugin<CleverPushPluginProps> = (
   config = withAppGroupPermissions(config, props);
   config = withCleverPushPodfile(config, props);
   config = withCleverPushNSE(config, props);
-  // config = withCleverPushNCE(config, props);
   config = withCleverPushXcodeProject(config, {
     ...props,
     targetName: NSE_TARGET_NAME,
     extFiles: NSE_EXT_FILES,
     sourceFile: NSE_SOURCE_FILE,
   });
-  // config = withCleverPushXcodeProject(config, {
-  //   ...props,
-  //   targetName: NCE_TARGET_NAME,
-  //   extFiles: NCE_EXT_FILES,
-  //   sourceFile: NCE_SOURCE_FILE,
-  // });
   // config = withEasManagedCredentials(config, props);
   return config;
 };

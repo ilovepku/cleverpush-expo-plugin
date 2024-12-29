@@ -5,7 +5,7 @@
   "main": "./app.plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "yarn run lint && rm -rf build && tsc && cp -a support/serviceExtensionFiles support/contentExtensionFiles build/support/",
+    "build": "yarn run lint && rm -rf build && tsc && cp -a support/serviceExtensionFiles",
     "lint": "eslint . --ext .ts",
     "prepare": "yarn run build"
   },
